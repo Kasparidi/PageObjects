@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/6tnj02a62jqksonj?svg=true)](https://ci.appveyor.com/project/Kasparidi/pageobjects)
