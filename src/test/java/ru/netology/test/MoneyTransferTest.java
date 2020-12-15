@@ -1,12 +1,17 @@
 package ru.netology.test;
 
+import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 import ru.netology.data.DataHelper;
 import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class MoneyTransferTest {
@@ -56,9 +61,7 @@ public class MoneyTransferTest {
         verificationPage.validVerify(verificationCode);
         val replenish0001 = DashboardPage.replenish0001();
         replenish0001.transferMore();
-        val dashboard = new DashboardPage();
-        System.out.println(dashboard.getFirstCardBalance());
-        System.out.println(dashboard.getSecondCardBalance());
+        $((WebElement) text("Недостаточно денег на счете"));
     }
 
 }
