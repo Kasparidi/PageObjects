@@ -46,8 +46,6 @@ public class MoneyTransferTest {
         int excepted = 10000;
         int actual = dashboard.getSecondCardBalance();
         Assertions.assertEquals(excepted, actual);
-        System.out.println(dashboard.getFirstCardBalance());
-        System.out.println(dashboard.getSecondCardBalance());
     }
 
 
