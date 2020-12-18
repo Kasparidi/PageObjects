@@ -28,8 +28,8 @@ public class MoneyTransferTest {
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
-        val replenish0001 = DashboardPage.replenish0001();
-        replenish0001.transferMoney();
+        val replenish = DashboardPage.replenish0001();
+        replenish.transferMoney("10000", DataHelper.getCardNumberSecond());
         val dashboard = new DashboardPage();
         int excepted = 20000;
         int actual = dashboard.getFirstCardBalance();
@@ -44,8 +44,8 @@ public class MoneyTransferTest {
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
-        val replenish0002 = DashboardPage.replenish0002();
-        replenish0002.transferMoney();
+        val replenish = DashboardPage.replenish0002();
+        replenish.transferMoney("10000",DataHelper.getCardNumberFirst());
         val dashboard = new DashboardPage();
         int excepted = 10000;
         int actual = dashboard.getSecondCardBalance();
@@ -59,8 +59,8 @@ public class MoneyTransferTest {
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
-        val replenish0001 = DashboardPage.replenish0001();
-        replenish0001.transferMore();
+        val replenish = DashboardPage.replenish0001();
+        replenish.transferMoney("11000", DataHelper.getCardNumberFirst());
         $((WebElement) text("Недостаточно денег на счете"));
     }
 
