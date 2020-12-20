@@ -1,13 +1,11 @@
 package ru.netology.test;
 
-import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import ru.netology.data.DataHelper;
-import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
 
 import static com.codeborne.selenide.Condition.text;
@@ -27,13 +25,11 @@ public class MoneyTransferTest {
         val authInfo = DataHelper.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-        val replenish = DashboardPage.replenish0001();
+        val dashboard = verificationPage.validVerify(verificationCode);
+        val replenish = dashboard.replenish0001();
         replenish.transferMoney("10000", DataHelper.getCardNumberSecond());
-        val dashboard = new DashboardPage();
-        int excepted = 20000;
-        int actual = dashboard.getFirstCardBalance();
-        Assertions.assertEquals(excepted, actual);
+        Assertions.assertEquals(20000, dashboard.getFirstCardBalance());
+        Assertions.assertEquals(0, dashboard.getSecondCardBalance());
     }
 
     @Test
@@ -43,13 +39,11 @@ public class MoneyTransferTest {
         val authInfo = DataHelper.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-        val replenish = DashboardPage.replenish0002();
+        val dashboard = verificationPage.validVerify(verificationCode);
+        val replenish = dashboard.replenish0002();
         replenish.transferMoney("10000",DataHelper.getCardNumberFirst());
-        val dashboard = new DashboardPage();
-        int excepted = 10000;
-        int actual = dashboard.getSecondCardBalance();
-        Assertions.assertEquals(excepted, actual);
+        Assertions.assertEquals(10000, dashboard.getSecondCardBalance());
+        Assertions.assertEquals(10000, dashboard.getFirstCardBalance());
     }
 
     @Test
@@ -58,8 +52,8 @@ public class MoneyTransferTest {
         val authInfo = DataHelper.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-        val replenish = DashboardPage.replenish0001();
+        val dashboard = verificationPage.validVerify(verificationCode);
+        val replenish = dashboard.replenish0001();
         replenish.transferMoney("11000", DataHelper.getCardNumberFirst());
         $((WebElement) text("Недостаточно денег на счете"));
     }
