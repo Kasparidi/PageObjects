@@ -4,11 +4,10 @@ import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebElement;
 import ru.netology.data.DataHelper;
 import ru.netology.page.LoginPage;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -55,7 +54,7 @@ public class MoneyTransferTest {
         val dashboard = verificationPage.validVerify(verificationCode);
         val replenish = dashboard.replenish0001();
         replenish.transferMoney("11000", DataHelper.getCardNumberFirst());
-        $((WebElement) text("Недостаточно денег на счете"));
+        Assertions.assertEquals($(byText("Недостаточно денег на счете")), replenish.getError());
     }
 
 }
