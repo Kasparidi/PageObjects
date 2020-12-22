@@ -1,5 +1,6 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
@@ -10,8 +11,8 @@ public class Replenish {
 
     private SelenideElement error = $(byText("Недостаточно денег на счете"));
 
-    public SelenideElement getError() {
-        return error;
+    public void getError() {
+        error.shouldBe(Condition.visible);
     }
 
     public void transferMoney(String amount, DataHelper.CardInfo info) {
